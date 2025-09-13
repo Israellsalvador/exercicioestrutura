@@ -1,62 +1,49 @@
-class Fila<T> {
-    private No<T> primeiro;
-    private No<T> ultimo;
+public class Fila<T> {
+    private No<T> inicio;
+    private No<T> fim;
 
     public Fila() {
-        primeiro = null;
-        ultimo = null;
+        this.inicio = null;
+        this.fim = null;
     }
 
-    public void enfileirar(T dado) {
-        No<T> novoNo = new No<T>(dado);
-        if (ultimo == null) {
-            primeiro = novoNo;
-            ultimo = novoNo;
+    // enqueue - adicionar no fim
+    public void enqueue(T dado) {
+        No<T> novoNo = new No<>(dado);
+        if (fim == null) {
+            inicio = novoNo;
+            fim = novoNo;
         } else {
-            ultimo.setNextNo(novoNo);
-            ultimo = novoNo;
+            fim.setNextNo(novoNo);
+            fim = novoNo;
         }
     }
 
-    public T desenfileirar() {
-        if (primeiro == null) {
+    // dequeue - remover do início
+    public T dequeue() {
+        if (inicio == null) {
             System.out.println("Fila vazia!");
             return null;
         }
-        T dado = primeiro.getDado();
-        primeiro = primeiro.getNextNo();
-        if (primeiro == null) {
-            ultimo = null;
+        T dado = inicio.getDado();
+        inicio = inicio.getNextNo();
+        if (inicio == null) {
+            fim = null;
         }
         return dado;
     }
 
-    public void imprimir() {
-        if (primeiro == null) {
+    // imprimir fila
+    public void imprime() {
+        if (inicio == null) {
             System.out.println("Fila vazia!");
-        } else {
-            System.out.println("Elementos da fila:");
-            No<T> aux = primeiro;
-            while (aux != null) {
-                System.out.println(aux.getDado());
-                aux = aux.getNextNo();
-            }
+            return;
         }
-    }
-}
-
-// Testando a Fila
-class TestaFila {
-    public static void main(String[] args) {
-        Fila<String> fila = new Fila<>();
-
-        fila.enfileirar("Maria");
-        fila.enfileirar("José");
-        fila.enfileirar("Ana");
-        fila.enfileirar("Pedro");
-
-        System.out.println("Primeiro removido da fila: " + fila.desenfileirar());
-
-        fila.imprimir();
+        System.out.println("Elementos da fila:");
+        No<T> aux = inicio;
+        while (aux != null) {
+            System.out.println(aux.getDado());
+            aux = aux.getNextNo();
+        }
     }
 }

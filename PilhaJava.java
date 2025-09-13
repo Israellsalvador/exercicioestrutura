@@ -1,18 +1,21 @@
-class Pilha<T> {
+public class Pilha<T> {
     private No<T> topo;
 
     public Pilha() {
-        topo = null;
+        this.topo = null;
     }
 
+    // push - empilhar
     public void push(T dado) {
-        No<T> novoNo = new No<T>(dado, topo);
+        No<T> novoNo = new No<>(dado);
+        novoNo.setNextNo(topo);
         topo = novoNo;
     }
 
+    // pop - desempilhar
     public T pop() {
         if (topo == null) {
-            System.out.println("A pilha está vazia!");
+            System.out.println("Pilha vazia!");
             return null;
         }
         T dado = topo.getDado();
@@ -20,32 +23,17 @@ class Pilha<T> {
         return dado;
     }
 
-    public void imprimir() {
+    // imprimir pilha
+    public void imprime() {
         if (topo == null) {
             System.out.println("Pilha vazia!");
-        } else {
-            System.out.println("Elementos da pilha:");
-            No<T> aux = topo;
-            while (aux != null) {
-                System.out.println(aux.getDado());
-                aux = aux.getNextNo();
-            }
+            return;
         }
-    }
-}
-
-// Testando a Pilha
-class TestaPilha {
-    public static void main(String[] args) {
-        Pilha<String> pilha = new Pilha<>();
-
-        pilha.push("Java");
-        pilha.push("Python");
-        pilha.push("C#");
-        pilha.push("C++");
-
-        System.out.println("Removido do topo: " + pilha.pop());
-
-        pilha.imprimir();
+        System.out.println("Elementos da pilha:");
+        No<T> aux = topo;
+        while (aux != null) {
+            System.out.println(aux.getDado());
+            aux = aux.getNextNo();
+        }
     }
 }

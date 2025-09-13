@@ -1,4 +1,4 @@
-class No<T> {
+public class No<T> {
     private T dado;
     private No<T> nextNo;
 
